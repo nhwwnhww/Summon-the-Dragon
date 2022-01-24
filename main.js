@@ -13,22 +13,22 @@ window.boot = function () {
         // Loading splash scene
         var splash = document.getElementById('splash');
         var loadintT = document.getElementById("loadingText")
-        // var progressBar = splash.querySelector('.progress-bar span');
+        var progressBar = splash.querySelector('.progress-bar span');
         cc.loader.onProgress = function (finish, total, item) {
-            // loadData.completedCount = finish;
-            // loadData.totalCount = total;
+            loadData.completedCount = finish;
+            loadData.totalCount = total;
 			
-			// var percent = 100 * finish / total;
-			// if(loadingNum >= 1 && total > 1){
-			// 	if(percent.toFixed(0) >= 100){
-            //         loadintT.innerHTML = 'loading......100' + '%';
-            //         clearInterval(timer); 
-            //         setTimeout(function(){
-            //             loadintT.remove();
-            //         },0.1 * 1000);
-			// 	}
-			// }
-            // loadingNum++;
+			var percent = 100 * finish / total;
+			if(loadingNum >= 1 && total > 1){
+				if(percent.toFixed(0) >= 100){
+                    loadintT.innerHTML = 'loading......100' + '%';
+                    clearInterval(timer); 
+                    setTimeout(function(){
+                        loadintT.remove();
+                    },0.1 * 1000);
+				}
+			}
+            loadingNum++;
         };
         splash.style.display = 'block';
         // progressBar.style.width = '0%';
@@ -54,15 +54,15 @@ window.boot = function () {
             else if (settings.orientation === 'portrait') {
                 cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
             }
-            // cc.view.enableAutoFullScreen([
-            //     cc.sys.BROWSER_TYPE_BAIDU,
-            //     cc.sys.BROWSER_TYPE_BAIDU_APP,
-            //     cc.sys.BROWSER_TYPE_WECHAT,
-            //     cc.sys.BROWSER_TYPE_MOBILE_QQ,
-            //     cc.sys.BROWSER_TYPE_MIUI,
-            //     cc.sys.BROWSER_TYPE_HUAWEI,
-            //     cc.sys.BROWSER_TYPE_UC,
-            // ].indexOf(cc.sys.browserType) < 0);
+            cc.view.enableAutoFullScreen([
+                cc.sys.BROWSER_TYPE_BAIDU,
+                cc.sys.BROWSER_TYPE_BAIDU_APP,
+                cc.sys.BROWSER_TYPE_WECHAT,
+                cc.sys.BROWSER_TYPE_MOBILE_QQ,
+                cc.sys.BROWSER_TYPE_MIUI,
+                cc.sys.BROWSER_TYPE_HUAWEI,
+                cc.sys.BROWSER_TYPE_UC,
+            ].indexOf(cc.sys.browserType) < 0);
             cc.view.enableAutoFullScreen(false);
         }
 
@@ -85,23 +85,23 @@ window.boot = function () {
         
         var MainManger = __require("MainManage");
         MainManger.init(launchScene,cc.sys.isBrowser,canvas.style.visibility);
-        // bundle.loadScene(launchScene, null, onProgress,
-        //     function (err, scene) {
-        //         if (!err) {
-        //             cc.director.runSceneImmediate(scene);
-        //             if (cc.sys.isBrowser) {
-        //                 // show canvas
-        //                 var canvas = document.getElementById('GameCanvas');
-        //                 canvas.style.visibility = '';
-        //                 var div = document.getElementById('GameDiv');
-        //                 if (div) {
-        //                     div.style.backgroundImage = '';
-        //                 }
-        //                 console.log('Success to load scene: ' + launchScene);
-        //             }
-        //         }
-        //     }
-        // );
+        bundle.loadScene(launchScene, null, onProgress,
+            function (err, scene) {
+                if (!err) {
+                    cc.director.runSceneImmediate(scene);
+                    if (cc.sys.isBrowser) {
+                        // show canvas
+                        var canvas = document.getElementById('GameCanvas');
+                        canvas.style.visibility = '';
+                        var div = document.getElementById('GameDiv');
+                        if (div) {
+                            div.style.backgroundImage = '';
+                        }
+                        console.log('Success to load scene: ' + launchScene);
+                    }
+                }
+            }
+        );
     };
 
     var option = {
